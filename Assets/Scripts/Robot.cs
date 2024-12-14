@@ -17,8 +17,8 @@ enum CommandType {
 enum FunctionType {
     move,
     turn,
+    print,
 }
-
 
 class Program {
     // public List<CommandType> Commands;
@@ -27,15 +27,18 @@ class Program {
 
     public int current = 0;
 
-    public Dictionary<string, int> BuiltinFunctions = new Dictionary<string, int>{
-        {"move", 0},
-        {"turn", 1},
-        {"print", 2},
+    public Dictionary<string, FunctionType> BuiltinFunctions = new Dictionary<string, FunctionType>{
+        {"move", FunctionType.move},
+        {"turn", FunctionType.turn},
+        {"print", FunctionType.print},
     };
 
     public Dictionary<string, int> ints = new Dictionary<string, int>();
 
     // public Dictionary<string, int> BuiltinFunctions = new Dictionary<string, int>{
+
+    List<bool> ScopeReturn = new List<bool>();
+    List<int> ReturnStack = new List<int>();
 
     public string[] Code;
     public int CurrentLine = 0;
@@ -65,6 +68,12 @@ class Program {
         "||",
     };
 
+    string[] symbols = {
+        "\"",
+        "=",
+        "}",
+    };
+
     public Program(string code) {
         Code = code.Split("\n", StringSplitOptions.None);
     }
@@ -72,11 +81,23 @@ class Program {
     static bool IsAlpha(char c) {
         return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z');
     }
+
+    static bool IsNum(char c) {
+        return (c >= '0' && c <= '9');
+    }
+
     bool IsSym(string sym) {
         for (int i = 0; i < operatorSymbols.Length; i++) {
             if (operatorSymbols[i] == sym) {
                 return true;
             }
+
+        }
+        for (int i = 0; i < symbols.Length; i++) {
+            if (symbols[i] == sym) {
+                return true;
+            }
+
         }
 
         return false;
@@ -89,83 +110,141 @@ class Program {
     public void Run(Robot robot) {
         var line = Code[CurrentLine];
 
-        for (int i = 0; i < line.Length; i++) {
-            if (IsAlpha(line[i])) {
-                int nameStart = i;
-                int nameEnd = nameStart;
+        int index = 0;
+        // while (index < line.Length) {
+        string token = NextToken(line, index, out index);
 
-                while (IsAlpha(line[nameEnd])) {
-                    nameEnd++;
+        bool notKeyword = false;
+        switch (token) {
+            case "if": {
+                int exprStart = index;
+                int exprEnd = exprStart;
+                while (exprEnd < line.Length && line[exprEnd] != '{') {
+                    exprEnd++;
                 }
 
-                string word = line.Substring(nameStart, nameEnd - nameStart);
-                bool notKeyword = false;
-                switch (word) {
-                    case "if":
-                    int exprStart = nameEnd;
-                    // while (exprStart < line.Length && char.IsWhiteSpace(line[exprStart]))
-                    // {
-                    //     exprStart++;
-                    // }
+                string expr = line.Substring(exprStart, exprEnd - exprStart);
 
-                    int exprEnd = exprStart;
-                    while (exprEnd < line.Length && line[exprEnd] != '{')
-                    {
-                        exprEnd++;
+                string condition = string.Join("", expr.Split(default(string[]), StringSplitOptions.RemoveEmptyEntries));
+                Debug.Log($"Condition: \"{condition}\"");
+
+                if (!EvaluateBoolExpr(expr)) {
+                    while(RemoveWhiteSpace(Code[CurrentLine]) != "}") {
+                        CurrentLine++;
                     }
+                } else {
+                    ScopeReturn.Add(false);
+                }
+            }
+            // while (exprStart < line.Length && char.IsWhiteSpace(line[exprStart]))
+            // {
+            //     exprStart++;
+            // }
 
-                    string expr = line.Substring(exprStart, exprEnd - exprStart);
+            break;
 
-                    string condition = string.Join("", expr.Split(default(string[]), StringSplitOptions.RemoveEmptyEntries));
-                    Debug.Log($"Condition: \"{condition}\"");
-
-                    if (!EvaluateBoolExpr(expr)) {
-                        while(RemoveWhiteSpace(Code[CurrentLine]) != "}") {
-                            CurrentLine++;
-                        }
-                    }
-
-                    break;
-
-                    default:
-                        notKeyword = true;
-                    break;
-
+            case "while": {
+                int exprStart = index;
+                int exprEnd = exprStart;
+                while (exprEnd < line.Length && line[exprEnd] != '{') {
+                    exprEnd++;
                 }
 
-                int funcID;
-                if (notKeyword && BuiltinFunctions.TryGetValue(word, out funcID)) {
-                    int parenStart = nameEnd;
-                    while (line[parenStart] != '(') {
-                        parenStart++;
+                string expr = line.Substring(exprStart, exprEnd - exprStart);
+
+                if (!EvaluateBoolExpr(expr)) {
+                    while(RemoveWhiteSpace(Code[CurrentLine]) != "}") {
+                        CurrentLine++;
                     }
-
-                    int parenEnd = parenStart;
-
-                    while (line[parenEnd] != ')') {
-                        parenEnd++;
-                    }
-
-                    string arg = line.Substring(parenStart+1, parenEnd-parenStart-1);
-
-                    switch (funcID) {
-                        case 0: {
-                        }
-                        break;
-                        case 1: {
-                        }
-                        break;
-                        case 2: {
-                            Debug.Log(arg);
-                        }
-                        break;
-
-                    }
+                } else {
+                    ScopeReturn.Add(true);
+                    ReturnStack.Add(CurrentLine);
                 }
+            }
 
+
+
+
+            break;
+
+            case "int": 
+            string varName = NextToken(line, index, out index);
+            if (NextToken(line, index, out index) != "=") {
+                Debug.LogError("syntax error");
+            }
+
+            int value;
+            string stringValue = NextToken(line, index, out index);
+            if (!int.TryParse(stringValue, out value)) {
+                Debug.LogError($"not int: {stringValue}");
+            }
+
+            ints.Add(varName, value);
+
+            break;
+
+            case "}": {
+                if (ScopeReturn[ScopeReturn.Count - 1]) {
+                    CurrentLine = ReturnStack[ReturnStack.Count - 1] - 1; 
+                    ReturnStack.RemoveAt(ReturnStack.Count - 1);
+                }
+                ScopeReturn.RemoveAt(ScopeReturn.Count - 1);
+            }
+            break;
+
+            default:
+                notKeyword = true;
+            break;
+
+        }
+
+        FunctionType functionType;
+        if (notKeyword && BuiltinFunctions.TryGetValue(token, out functionType)) {
+            int parenStart = index;
+            while (line[parenStart] != '(') {
+                parenStart++;
+            }
+
+            int parenEnd = parenStart;
+
+            while (line[parenEnd] != ')') {
+                parenEnd++;
+            }
+
+            string args = line.Substring(parenStart+1, parenEnd-parenStart-1);
+
+            switch (functionType) {
+                case FunctionType.move: {
+                    robot.Move(float.Parse(args));
+                }
                 break;
+                case FunctionType.turn: {
+                    robot.Turn(float.Parse(args));
+                }
+                break;
+                case FunctionType.print: {
+                    Debug.Log(EvaluateStringExpr(args));
+                }
+                break;
+
             }
         }
+
+        // for (int i = 0; i < line.Length; i++) {
+        //     if (IsAlpha(line[i])) {
+        //         int nameStart = i;
+        //         int nameEnd = nameStart;
+
+        //         while (IsAlpha(line[nameEnd])) {
+        //             nameEnd++;
+        //         }
+
+        //         string word = line.Substring(nameStart, nameEnd - nameStart);
+
+
+        //         break;
+        //     }
+        // }
 
         CurrentLine++;
     }
@@ -186,13 +265,28 @@ class Program {
                     // var d = false!;
                     end = wordEnd;
                     return line.Substring(wordStart, wordEnd - wordStart);
+                } else if (IsNum(line[wordStart])) {
+                    int wordEnd = wordStart; 
+                    while (wordEnd < line.Length) {
+                        if (!IsNum(line[wordEnd])) {
+                            break;
+                        }
+                        wordEnd++;
+                    }
+
+                    // var d = false!;
+                    end = wordEnd;
+                    return line.Substring(wordStart, wordEnd - wordStart);
                 } else {
-                    for (int i = 0; i < 2; i++) {
-                        var token = line.Substring(wordStart, i + 1);
+                    int wordEnd = wordStart; 
+                    while (wordEnd <= line.Length) {
+                        var token = line.Substring(wordStart, wordEnd - wordStart);
                         if (IsSym(token)) {
-                            end = wordStart + i + 1;
+                            end = wordEnd;
                             return token;
                         }
+
+                        wordEnd++;
                     }
                 }
 
@@ -202,6 +296,25 @@ class Program {
         }
 
         end = wordStart;
+        return "";
+    }
+
+
+    string EvaluateStringExpr(string expr) {
+        int index = 0;
+        string token = NextToken(expr, index, out index);
+
+        int intValue;
+        if (ints.TryGetValue(token, out intValue)) {
+            return intValue.ToString();
+        }
+
+        // if (token == "\"") {
+
+        //     while ('')
+
+        // }
+
         return "";
     }
 
@@ -305,17 +418,21 @@ public class Robot : MonoBehaviour
         startY = InstructionPointer.localPosition.y;
 
         program = new Program(CodeField.text);
+
+        RunBtn.onClick.AddListener(() => {
+            if (!isRunning) {
+                Debug.Log("KYS");
+                program = new Program(CodeField.text);
+                isRunning = true;
+            } else {
+                isRunning = false;
+            }
+        });
     }
     void Start()
     {
         // program = "move 2 turn 90 move 3 turn -45 move -10".Split();
 
-        // RunBtn.onClick.AddListener(() => {
-        //     Debug.Log("KYS");
-        //     program = CodeField.text.Split();
-        //     programCounter = 0;
-        //     // isRunning = true;
-        // });
 
         // var kys = new Program("print(asdf)    print(vhb)");
         // kys.Run(this);
@@ -337,32 +454,33 @@ public class Robot : MonoBehaviour
         //     program.CurrentLine++;
         // }
 
-        // if (!isRunningCommand) {
-        //     timeAccumulator += Time.deltaTime;
+        if (isRunning && !isRunningCommand) {
+            timeAccumulator += Time.deltaTime;
 
-        //     while (program.CurrentLine < program.Code.Length && timeAccumulator >= instructionPeriod && !isRunningCommand) {
-        //         timeAccumulator -= instructionPeriod;
-        //     }
+            while (program.CurrentLine < program.Code.Length && timeAccumulator >= instructionPeriod && !isRunningCommand) {
+                timeAccumulator -= instructionPeriod;
+                program.Run(this);
+            }
+        }
+
+        // if (Input.GetKeyDown(KeyCode.R) && program.CurrentLine < program.Code.Length) {
+        //     program.Run(this);
         // }
 
-        if (Input.GetKeyDown(KeyCode.R) && program.CurrentLine < program.Code.Length) {
-            program.Run(this);
-
-            float y = 0;
-            if (program.CurrentLine < CodeField.textComponent.textInfo.lineCount) {
-                var lineInfo = CodeField.textComponent.textInfo.lineInfo[program.CurrentLine];
-                y = (lineInfo.ascender + lineInfo.descender) / 2;
-            } else if (CodeField.textComponent.textInfo.lineCount > 0){
-                var lineInfo = CodeField.textComponent.textInfo.lineInfo[program.CurrentLine-1];
-                y = lineInfo.descender - 8;
-            } else {
-                y = CodeField.textComponent.textBounds.min.y;
-            }
-            // var y = CodeField.textComponent.textInfo.lineInfo[program.CurrentLine].ascender;
-            var pos = InstructionPointer.localPosition;
-            pos.y = y;
-            InstructionPointer.anchoredPosition = pos;
+        float y = 0;
+        if (program.CurrentLine < CodeField.textComponent.textInfo.lineCount) {
+            var lineInfo = CodeField.textComponent.textInfo.lineInfo[program.CurrentLine];
+            y = (lineInfo.ascender + lineInfo.descender) / 2;
+        } else if (CodeField.textComponent.textInfo.lineCount > 0){
+            var lineInfo = CodeField.textComponent.textInfo.lineInfo[program.CurrentLine-1];
+            y = lineInfo.descender - 8;
+        } else {
+            y = CodeField.textComponent.textBounds.min.y;
         }
+        // var y = CodeField.textComponent.textInfo.lineInfo[program.CurrentLine].ascender;
+        var pos = InstructionPointer.localPosition;
+        pos.y = y;
+        InstructionPointer.anchoredPosition = pos;
 
 
         if (isRunningCommand) {
@@ -406,55 +524,18 @@ public class Robot : MonoBehaviour
         }
         
     }
-    void Run3(Program program) {
 
+    public void Move(float distance) {
+        currentCommand = CommandType.Move;
+        moveValue = distance;
+        moveAccumulator = 0;
+        isRunningCommand = true;
     }
 
-    void Run2(string[] program) {
-        while (!isRunningCommand && programCounter < program.Length) {
-            switch (program[programCounter]) {
-                case "if":
-                case "move":{
-                    currentCommand = CommandType.Move;
-                    moveValue = float.Parse(program[programCounter+1]);
-                    moveAccumulator = 0;
-                    // commandStartTime = Time.time;
-                    // commandDuration = moveDistance / MoveSpeed;
-                    isRunningCommand = true;
-                    programCounter++;
-                    break;
-                }
-                case "turn": {
-                    currentCommand = CommandType.Turn;
-                    turnValue = float.Parse(program[programCounter+1]);
-                    turnAccumulator = 0;
-                    // commandStartTime = Time.time;
-                    // commandDuration = turnAmount / TurnSpeed;
-                    isRunningCommand = true;
-                    programCounter++;
-                    break;
-                }
-            }
-            programCounter++;
-        }
+    public void Turn(float angle) {
+        currentCommand = CommandType.Turn;
+        turnValue = angle;
+        turnAccumulator = 0;
+        isRunningCommand = true;
     }
-
-    // void Run(Program program) {
-    //     int move_index = 0;
-    //     int turn_index = 0;
-    //     foreach (var commandType in program.Commands) {
-    //         switch (commandType) {
-    //             case CommandType.Move: {
-    //                 transform.po
-    //                 Time.time
-
-
-    //                 break;
-    //             }
-
-    //         }
-
-    //     }
-
-    // }
 }
