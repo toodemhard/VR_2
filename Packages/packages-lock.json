@@ -112,8 +112,6 @@
       "dependencies": {},
       "url": "https://packages.unity.com"
     },
-<<<<<<< HEAD
-=======
     "com.unity.postprocessing": {
       "version": "3.4.0",
       "depth": 0,
@@ -123,7 +121,6 @@
       },
       "url": "https://packages.unity.com"
     },
->>>>>>> ff3a364a929a899588eacccab434d02c4810a9f3
     "com.unity.probuilder": {
       "version": "6.0.4",
       "depth": 0,
