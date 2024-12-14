@@ -1,17 +1,17 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class DoorLevel1 : MonoBehaviour
+public class Teleport : MonoBehaviour
 {
     private bool isPlayerInRange = false;
     public string sceneName = "Room1"; // The name of the scene you want to load
-    public Vector3 targetPosition = new Vector3(-12, 10, 5); // The coordinates in the new scene
+    public Vector3 targetPosition = new Vector3(-0.65f, 2, 8); // The coordinates in the new scene
 
     void Update()
     {
         if (isPlayerInRange && Input.GetKeyDown(KeyCode.E))
         {
-           // Debug.Log("E key pressed");
+            // Debug.Log("E key pressed");
             ChangeScene();
         }
     }
@@ -21,7 +21,7 @@ public class DoorLevel1 : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             isPlayerInRange = true;
-// Debug.Log("Player is in range");
+            // Debug.Log("Player is in range");
         }
     }
 
