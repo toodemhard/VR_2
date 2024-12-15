@@ -1382,6 +1382,7 @@ GameObject:
   - component: {fileID: 243210158}
   - component: {fileID: 243210157}
   - component: {fileID: 243210156}
+  - component: {fileID: 243210160}
   m_Layer: 0
   m_Name: endpoint
   m_TagString: Untagged
@@ -1478,6 +1479,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &243210160
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 243210155}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f10077373ca49d43ba6cd839e7d7e8d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levelToUnlock: 3
 --- !u!1001 &277327180
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5523,6 +5537,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sceneName: Lobby
   targetPosition: {x: 515, y: 1, z: 516}
+  requiredLevel: 1
 --- !u!65 &912574947
 BoxCollider:
   m_ObjectHideFlags: 0
