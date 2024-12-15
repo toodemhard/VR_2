@@ -401,7 +401,7 @@ GameObject:
   - component: {fileID: 1961028422}
   - component: {fileID: 1961028421}
   m_Layer: 0
-  m_Name: Text (TMP)
+  m_Name: credits (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -427,13 +427,24 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Credits:\n\n\nleqi leqi - robot\n\ncharlotte - door\n\nconor - room\n\nvishnu
-    - room\n\neveryone - idea thinking\n\nconor - drawing\n\nleqi - being mean\n\nvishnu
-    - breaking unity\n\ncharlotte - eating dinner\n\nconor - coding real good\n\ngrape
-    buyer - buying grapes\n\nleqi \n\ncharlotte - more doors\n\nvishnu - background
-    research\n\nconor - credits scene\n\nleqi - a lot of programming\n\ncharlotte
-    - a moderate amount of programming\n\nconor - team leader\n\nconor - checking
-    the code\n\n\n\n\n"
+  m_text: "Credits:\n\n\nLeqi \u2013 Robot Design & Programming\nCharlotte \u2013
+    Door Design & Additional Doors\nConor \u2013 Room Design, Developer, Coding,
+    and Code Review\nVishnu \u2013 Room Design, Background Research, & Wall Design\n\nTeam
+    Contributions \u2013 Concept Development & Idea Brainstorming\n\nConor \u2013
+    Drawing & Visual Design\nLeqi \u2013 User Interface Programming & Systems Design\nVishnu
+    \u2013 Unity Troubleshooting & Debugging\nCharlotte \u2013 Dinner Break (Important
+    Task)\nConor \u2013 Advanced Coding & Problem Solving\n\nGrape Buyer \u2013 Procurement
+    of Grapes (Essential Task)\nLeqi \u2013 Extensive Programming Contributions\nCharlotte
+    \u2013 Moderate Programming Contributions\n\nConor \u2013 Team Leadership & Code
+    Oversight\nLibrary Man \u2013 Food Provision\nConor \u2013 FaceTime Participant\nCharlotte
+    \u2013 Pet Showcasing (A Critical Role)\nVishnu \u2013 Literature References
+    & Advice\n\nLeqi \u2013 Robot Behavior Programming (Again)\nConnor \u2013 Game
+    of Thrones Knowledge Integration\n\nSpecial Effects Team \u2013 Special Effects
+    Design & Implementation\nProp Team \u2013 Prop Design & Creation\n\nVishnu \u2013
+    Wall Design & Implementation\nConor \u2013 Lighting Design\nLeqi \u2013 Screen
+    Design & Implementation\nCharlotte - Professional lighting manager\n\nCharlotte
+    \u2013 Objective Design & Implementation\nVishnu \u2013 Occasional Advice\n\nConor
+    - Credits design\n\n\nThanks for playing!!"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -498,7 +509,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0.115112305, y: 0, z: -47.644768, w: -85.31869}
+  m_margin: {x: -37.40684, y: 0, z: -47.644768, w: -85.31869}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   _SortingLayer: 0
@@ -568,7 +579,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 182.15, y: -90.028015, z: -89.25598}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 504.91998, y: 286}
+  m_AnchoredPosition: {x: 369, y: 286}
   m_SizeDelta: {x: 20, y: 5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1660057539 &9223372036854775807
