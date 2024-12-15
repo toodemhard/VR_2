@@ -425,10 +425,11 @@ public class Robot : MonoBehaviour
         isRunning = false;
         isRunningCommand = false;
         program.CurrentLine = 0;
-        transform.position = robotStart.position;
+
+        var pos = robotStart.position;
+        transform.position = pos;
         Debug.Log(robotStart.position.y);
         transform.rotation = robotStart.rotation;
-
     }
 
     void Awake() {
@@ -436,7 +437,6 @@ public class Robot : MonoBehaviour
         startY = InstructionPointer.localPosition.y;
 
         program = new Program(CodeField.text);
-        Reset();
 
         RunButton.onClick.AddListener(() => {
             if (!isRunning) {
@@ -445,7 +445,7 @@ public class Robot : MonoBehaviour
                 isRunning = true;
                 RunButton.GetComponentInChildren<TMP_Text>().text = "Reset";
             } else {
-                Reset();
+                // Reset();
                 RunButton.GetComponentInChildren<TMP_Text>().text = "Run";
             }
         });
@@ -458,12 +458,13 @@ public class Robot : MonoBehaviour
         //         isRunning = false;
         //     }
         // });
+        Debug.Log("slkhfkjladh");
+        Reset();
     }
 
     // Update is called once per frame
     void Update()
     {
-
         // var time = Time.time;
 
         // if (Input.GetKeyDown(KeyCode.E)) {
