@@ -72,6 +72,7 @@ class Program {
         "\"",
         "=",
         "}",
+        "//"
     };
 
     public Program(string code) {
@@ -190,6 +191,9 @@ class Program {
                 }
                 ScopeReturn.RemoveAt(ScopeReturn.Count - 1);
             }
+            break;
+
+            case "//": { }
             break;
 
             default:
