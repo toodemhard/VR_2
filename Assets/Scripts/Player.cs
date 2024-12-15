@@ -10,10 +10,11 @@ public class Player : MonoBehaviour
     [SerializeField] float AimSensitivity;
     [SerializeField] GameObject Cam;
     [SerializeField] Transform Feet;
-    [SerializeField] Transform Hand;
-    [SerializeField] GameObject KeyPrefab;
-    [SerializeField] GameObject KeyRigidbodyPrefab;
-    [SerializeField] GameObject Text;
+    [SerializeField] GameObject TerminalUI;
+    // [SerializeField] Transform Hand;
+    // [SerializeField] GameObject KeyPrefab;
+    // [SerializeField] GameObject KeyRigidbodyPrefab;
+    // [SerializeField] GameObject Text;
     Rigidbody rb;
 
     LayerMask doorMask;
@@ -40,7 +41,7 @@ public class Player : MonoBehaviour
 
     void Awake() {
         doorMask = LayerMask.GetMask("Door");
-        groundMask = LayerMask.GetMask("Ground");
+        groundMask = LayerMask.GetMask("Default");
         itemMask = LayerMask.GetMask("Item");
 
         rb = GetComponent<Rigidbody>();
@@ -92,30 +93,30 @@ public class Player : MonoBehaviour
 
             }
 
-            if (Physics.Raycast(Cam.transform.position, Cam.transform.forward, out hit, 10, itemMask)) {
-                Destroy(hit.transform.gameObject);
+            // if (Physics.Raycast(Cam.transform.position, Cam.transform.forward, out hit, 10, itemMask)) {
+            //     Destroy(hit.transform.gameObject);
 
-                Instantiate(KeyPrefab, Hand);
-                hasKey = true;
-            }
+            //     Instantiate(KeyPrefab, Hand);
+            //     hasKey = true;
+            // }
         }
 
-        if (Time.time - lastInteract < TextDuration) {
-            Text.SetActive(true);
-        } else {
-            Text.SetActive(false);
-        }
+        // if (Time.time - lastInteract < TextDuration) {
+        //     Text.SetActive(true);
+        // } else {
+        //     Text.SetActive(false);
+        // }
 
-        if (Input.GetKeyDown(KeyCode.G)) {
-            if (hasKey) {
-                var keyRigidbody = Instantiate(KeyRigidbodyPrefab, Cam.transform.position + Cam.transform.forward * 0.5f, Quaternion.identity);
-                keyRigidbody.GetComponentInChildren<Rigidbody>().AddForce(Cam.transform.forward * ThrowForce, ForceMode.Impulse);
+        // if (Input.GetKeyDown(KeyCode.G)) {
+        //     if (hasKey) {
+        //         var keyRigidbody = Instantiate(KeyRigidbodyPrefab, Cam.transform.position + Cam.transform.forward * 0.5f, Quaternion.identity);
+        //         keyRigidbody.GetComponentInChildren<Rigidbody>().AddForce(Cam.transform.forward * ThrowForce, ForceMode.Impulse);
 
-                Destroy(Hand.GetChild(0).gameObject);
+        //         Destroy(Hand.GetChild(0).gameObject);
 
-                hasKey = false;
-            }
-        }
+        //         hasKey = false;
+        //     }
+        // }
 
 
         bool isGrounded = false;
