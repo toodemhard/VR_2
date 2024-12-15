@@ -381,13 +381,16 @@ public class Robot : MonoBehaviour
     float TurnSpeed = 90;
     [SerializeField]
     float instructionPeriod = 0.25f;
-
     [SerializeField]
-    Button RunBtn;
+    Button RunButton;
+    [SerializeField]
+    Button ResetButton;
     [SerializeField]
     TMP_InputField CodeField;
     [SerializeField]
     RectTransform InstructionPointer;
+    [SerializeField]
+    Transform robotStart;
     float startY;
 
     bool isRunningCommand = false;
@@ -419,25 +422,30 @@ public class Robot : MonoBehaviour
 
         program = new Program(CodeField.text);
 
-        RunBtn.onClick.AddListener(() => {
+        RunButton.onClick.AddListener(() => {
             if (!isRunning) {
                 Debug.Log("KYS");
                 program = new Program(CodeField.text);
                 isRunning = true;
+                RunButton.GetComponentInChildren<TMP_Text>().text = "Reset";
             } else {
                 isRunning = false;
+                isRunningCommand = false;
+                program.CurrentLine = 0;
+                transform.position = robotStart.position;
+                transform.rotation = robotStart.rotation;
+                RunButton.GetComponentInChildren<TMP_Text>().text = "Run";
             }
         });
-    }
-    void Start()
-    {
-        // program = "move 2 turn 90 move 3 turn -45 move -10".Split();
-
-
-        // var kys = new Program("print(asdf)    print(vhb)");
-        // kys.Run(this);
-        
-
+        // ResetButton.onClick.AddListener(() => {
+        //     if (!isRunning) {
+        //         Debug.Log("KYS");
+        //         program = new Program(CodeField.text);
+        //         isRunning = true;
+        //     } else {
+        //         isRunning = false;
+        //     }
+        // });
     }
 
     // Update is called once per frame

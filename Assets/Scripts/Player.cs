@@ -17,7 +17,7 @@ public class Player : MonoBehaviour
     // [SerializeField] GameObject Text;
     Rigidbody rb;
 
-    LayerMask doorMask;
+    LayerMask terminalMask;
     LayerMask itemMask;
     LayerMask groundMask;
 
@@ -40,16 +40,18 @@ public class Player : MonoBehaviour
     bool hasKey = false;
 
     void Awake() {
-        doorMask = LayerMask.GetMask("Door");
+        terminalMask = LayerMask.GetMask("Terminal");
         groundMask = LayerMask.GetMask("Default");
-        itemMask = LayerMask.GetMask("Item");
+        // itemMask = LayerMask.GetMask("Item");
 
         rb = GetComponent<Rigidbody>();
         controller = GetComponent<CharacterController>();
 
 
-        // Cursor.lockState = CursorLockMode.Locked;
-        // Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+
+        TerminalUI.SetActive(false);
     }
 
     void FixedUpdate()
@@ -60,19 +62,16 @@ public class Player : MonoBehaviour
     void Update() {
         // Cam.transform.localRotation *= Quaternion.AngleAxis(, Vector3.right);
 
-        var rotationY = Input.GetAxisRaw("Mouse X") * AimSensitivity;
-        transform.Rotate(new Vector3(0, rotationY, 0), Space.Self);
-
-        rotationX += -Input.GetAxisRaw("Mouse Y") * AimSensitivity;
-        rotationX = Mathf.Clamp(rotationX, -90f, 90f);
-
-        Cam.transform.localRotation = Quaternion.Euler(rotationX, 0, 0);
 
 
-        
+
 
         if (Input.GetKeyDown(KeyCode.E)) {
-            if (Physics.Raycast(Cam.transform.position, Cam.transform.forward, out var hit, 10, doorMask)) {
+            if (Physics.Raycast(Cam.transform.position, Cam.transform.forward, out var hit, 6, terminalMask)) {
+                TerminalUI.SetActive(true);
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+
                 // var door = hit.transform.GetComponentInParent<Door>();
 
                 // if (door.locked) {
@@ -101,6 +100,12 @@ public class Player : MonoBehaviour
             // }
         }
 
+        if (Input.GetKeyDown(KeyCode.Escape) && TerminalUI.activeSelf) {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+            TerminalUI.SetActive(false);
+        }
+
         // if (Time.time - lastInteract < TextDuration) {
         //     Text.SetActive(true);
         // } else {
@@ -117,6 +122,17 @@ public class Player : MonoBehaviour
         //         hasKey = false;
         //     }
         // }
+        if (TerminalUI.activeSelf) {
+            return;
+        }
+
+        var rotationY = Input.GetAxisRaw("Mouse X") * AimSensitivity;
+        transform.Rotate(new Vector3(0, rotationY, 0), Space.Self);
+
+        rotationX += -Input.GetAxisRaw("Mouse Y") * AimSensitivity;
+        rotationX = Mathf.Clamp(rotationX, -90f, 90f);
+
+        Cam.transform.localRotation = Quaternion.Euler(rotationX, 0, 0);
 
 
         bool isGrounded = false;
