@@ -421,10 +421,22 @@ public class Robot : MonoBehaviour
     int programCounter = 0;
     bool isRunning = false;
 
+    void Reset() {
+        isRunning = false;
+        isRunningCommand = false;
+        program.CurrentLine = 0;
+        transform.position = robotStart.position;
+        Debug.Log(robotStart.position.y);
+        transform.rotation = robotStart.rotation;
+
+    }
+
     void Awake() {
+        // transform.gameObject.SetActive(false);
         startY = InstructionPointer.localPosition.y;
 
         program = new Program(CodeField.text);
+        Reset();
 
         RunButton.onClick.AddListener(() => {
             if (!isRunning) {
@@ -433,11 +445,7 @@ public class Robot : MonoBehaviour
                 isRunning = true;
                 RunButton.GetComponentInChildren<TMP_Text>().text = "Reset";
             } else {
-                isRunning = false;
-                isRunningCommand = false;
-                program.CurrentLine = 0;
-                transform.position = robotStart.position;
-                transform.rotation = robotStart.rotation;
+                Reset();
                 RunButton.GetComponentInChildren<TMP_Text>().text = "Run";
             }
         });
