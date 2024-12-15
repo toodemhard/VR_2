@@ -17,6 +17,8 @@ enum CommandType {
 enum FunctionType {
     move,
     turn,
+    set_speed,
+    sensor_detected,
     print,
 }
 
@@ -27,9 +29,13 @@ class Program {
 
     public int current = 0;
 
+    Robot robot;
+
     public Dictionary<string, FunctionType> BuiltinFunctions = new Dictionary<string, FunctionType>{
         {"move", FunctionType.move},
         {"turn", FunctionType.turn},
+        {"set_speed", FunctionType.set_speed},
+        {"sensor_detected", FunctionType.sensor_detected},
         {"print", FunctionType.print},
     };
 
@@ -75,12 +81,13 @@ class Program {
         "//"
     };
 
-    public Program(string code) {
+    public Program(string code, Robot _robot) {
         Code = code.Split("\n", StringSplitOptions.None);
+        robot = _robot;
     }
 
     static bool IsAlpha(char c) {
-        return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z');
+        return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || (c == '_');
     }
 
     static bool IsNum(char c) {
@@ -108,7 +115,7 @@ class Program {
         return string.Join("", str.Split(default(string[]), StringSplitOptions.RemoveEmptyEntries));
     }
 
-    public void Run(Robot robot) {
+    public void Run() {
         var line = Code[CurrentLine];
 
         int index = 0;
@@ -230,7 +237,9 @@ class Program {
                     Debug.Log(EvaluateStringExpr(args));
                 }
                 break;
-
+                case FunctionType.set_speed:
+                    robot.SetSpeed(float.Parse(args));
+                break;
             }
         }
 
@@ -336,13 +345,20 @@ class Program {
                 valueStack.Add(false);
             } else if (token == "true") {
                 valueStack.Add(true);
+            } else if (BuiltinFunctions.TryGetValue(token, out var functionType)) {
+                switch (functionType) {
+                    case FunctionType.sensor_detected:
+                        valueStack.Add(robot.SensorDetected());
+                    break;
+                }
             } else {
-            for (int i = 0; i < operatorSymbols.Length; i++) {
-                if (token == operatorSymbols[i]) {
-                    operatorStack.Add((Operator)i);
+                for (int i = 0; i < operatorSymbols.Length; i++) {
+                    if (token == operatorSymbols[i]) {
+                        operatorStack.Add((Operator)i);
+                    }
                 }
             }
-            }
+
         }
 
         bool sumValue = valueStack[0];
@@ -365,8 +381,9 @@ class Program {
                 valueIndex++;
                 break;
             }
-
         }
+
+        
         // if wordStart(I)
 
         return sumValue;
@@ -388,18 +405,21 @@ public class Robot : MonoBehaviour
     [SerializeField]
     Button RunButton;
     [SerializeField]
-    Button ResetButton;
-    [SerializeField]
     TMP_InputField CodeField;
     [SerializeField]
     RectTransform InstructionPointer;
     [SerializeField]
     Transform robotStart;
+    [SerializeField]
+    Sensor sensor;
+
     float startY;
 
     bool isRunningCommand = false;
 
     float timeAccumulator = 0;
+
+    float Speed = 0;
 
     
 
@@ -428,6 +448,7 @@ public class Robot : MonoBehaviour
 
         var pos = robotStart.position;
         transform.position = pos;
+        Speed = 0;
         Debug.Log(robotStart.position.y);
         transform.rotation = robotStart.rotation;
     }
@@ -436,16 +457,16 @@ public class Robot : MonoBehaviour
         // transform.gameObject.SetActive(false);
         startY = InstructionPointer.localPosition.y;
 
-        program = new Program(CodeField.text);
+        program = new Program(CodeField.text, this);
 
         RunButton.onClick.AddListener(() => {
             if (!isRunning) {
                 Debug.Log("KYS");
-                program = new Program(CodeField.text);
+                program = new Program(CodeField.text, this);
                 isRunning = true;
                 RunButton.GetComponentInChildren<TMP_Text>().text = "Reset";
             } else {
-                // Reset();
+                Reset();
                 RunButton.GetComponentInChildren<TMP_Text>().text = "Run";
             }
         });
@@ -458,7 +479,7 @@ public class Robot : MonoBehaviour
         //         isRunning = false;
         //     }
         // });
-        Debug.Log("slkhfkjladh");
+        // Debug.Log("slkhfkjladh");
         Reset();
     }
 
@@ -480,7 +501,7 @@ public class Robot : MonoBehaviour
 
             while (program.CurrentLine < program.Code.Length && timeAccumulator >= instructionPeriod && !isRunningCommand) {
                 timeAccumulator -= instructionPeriod;
-                program.Run(this);
+                program.Run();
             }
         }
 
@@ -502,6 +523,13 @@ public class Robot : MonoBehaviour
         var pos = InstructionPointer.localPosition;
         pos.y = y;
         InstructionPointer.anchoredPosition = pos;
+
+        // if (moveValue < 0)
+        // {
+        //     move *= -1;
+        // }
+
+        transform.position += transform.forward * Speed * Time.deltaTime;
 
 
         if (isRunningCommand) {
@@ -558,5 +586,13 @@ public class Robot : MonoBehaviour
         turnValue = angle;
         turnAccumulator = 0;
         isRunningCommand = true;
+    }
+
+    public void SetSpeed(float speed) {
+        Speed = speed;
+    }
+
+    public bool SensorDetected() {
+        return sensor.Innit;
     }
 }
