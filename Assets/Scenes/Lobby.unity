@@ -1103,6 +1103,21 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 0}
+--- !u!114 &656959762
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 656959759}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ec4c9d60ea5f564c9e6fcf74d8f0212, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneName: EndRoom
+  targetPosition: {x: -0.65, y: 2, z: 8}
+  requiredLevel: 4
 --- !u!1 &684061210
 GameObject:
   m_ObjectHideFlags: 0
@@ -1544,6 +1559,21 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 0}
+--- !u!114 &849160113
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 849160110}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ec4c9d60ea5f564c9e6fcf74d8f0212, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneName: Room1
+  targetPosition: {x: -0.65, y: 2, z: 8}
+  requiredLevel: 3
 --- !u!1 &885206997
 GameObject:
   m_ObjectHideFlags: 0
@@ -2662,6 +2692,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8875449794350654438, guid: b581fdbd127292d44ab21c4b16d91d05, type: 3}
       insertIndex: -1
       addedObject: {fileID: 656959761}
+    - targetCorrespondingSourceObject: {fileID: 8875449794350654438, guid: b581fdbd127292d44ab21c4b16d91d05, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 656959762}
   m_SourcePrefab: {fileID: 100100000, guid: b581fdbd127292d44ab21c4b16d91d05, type: 3}
 --- !u!1 &1359011684
 GameObject:
@@ -4034,6 +4067,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8875449794350654438, guid: b581fdbd127292d44ab21c4b16d91d05, type: 3}
       insertIndex: -1
       addedObject: {fileID: 849160112}
+    - targetCorrespondingSourceObject: {fileID: 8875449794350654438, guid: b581fdbd127292d44ab21c4b16d91d05, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 849160113}
   m_SourcePrefab: {fileID: 100100000, guid: b581fdbd127292d44ab21c4b16d91d05, type: 3}
 --- !u!1 &2046182141
 GameObject:
