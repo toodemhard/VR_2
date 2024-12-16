@@ -4,6 +4,7 @@ using System.Text.RegularExpressions;
 using NUnit.Framework;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.UI;
 using UnityEngine.WSA;
 
@@ -135,6 +136,20 @@ class Program {
         return string.Join("", str.Split(default(string[]), StringSplitOptions.RemoveEmptyEntries));
     }
 
+    void GoToMathcingClosingBrace() {
+        int openingBraces = 0;
+
+        do {
+            if (Code[CurrentLine].Contains('{')) {
+                openingBraces++;
+            }
+            if (Code[CurrentLine].Contains('}')) {
+                openingBraces--;
+            }
+            CurrentLine++;
+        } while (openingBraces > 0);
+    }
+
     public void Run() {
         var line = Code[CurrentLine];
 
@@ -157,9 +172,7 @@ class Program {
                 Debug.Log($"Condition: \"{condition}\"");
 
                 if (!EvaluateBoolExpr(expr)) {
-                    while(RemoveWhiteSpace(Code[CurrentLine]) != "}") {
-                        CurrentLine++;
-                    }
+                    GoToMathcingClosingBrace();
                 } else {
                     ScopeReturn.Add(false);
                 }
@@ -172,6 +185,9 @@ class Program {
             break;
 
             case "while": {
+                if (ints["i"] == 3) {
+                    int asdf = 23423;
+                }
                 int exprStart = index;
                 int exprEnd = exprStart;
                 while (exprEnd < line.Length && line[exprEnd] != '{') {
@@ -181,9 +197,7 @@ class Program {
                 string expr = line.Substring(exprStart, exprEnd - exprStart);
 
                 if (!EvaluateBoolExpr(expr)) {
-                    while(RemoveWhiteSpace(Code[CurrentLine]) != "}") {
-                        CurrentLine++;
-                    }
+                    GoToMathcingClosingBrace();
                 } else {
                     ScopeReturn.Add(true);
                     ReturnStack.Add(CurrentLine);
@@ -651,7 +665,9 @@ public class Robot : MonoBehaviour
         // });
         // Debug.Log("slkhfkjladh");
         Reset();
+    }
 
+    void Start() {
         OnTextChanged(CodeField.text);
     }
 
@@ -786,11 +802,11 @@ public class Robot : MonoBehaviour
 
     private string ApplySyntaxHighlighting(string input) {
         string escapedInput = input;
-        escapedInput = Regex.Replace(escapedInput, commentPattern, $"<color=#{ColorUtility.ToHtmlStringRGB(CommentColor)}>$0</color>");
         escapedInput = Regex.Replace(escapedInput, bracePattern, $"<color=#{ColorUtility.ToHtmlStringRGB(BraceColor)}>$0</color>");
         escapedInput = Regex.Replace(escapedInput, keywordPattern, $"<color=#{ColorUtility.ToHtmlStringRGB(KeywordColor)}>$0</color>");
         escapedInput = Regex.Replace(escapedInput, boolValuePattern, $"<color=#{ColorUtility.ToHtmlStringRGB(ValueColor)}>$0</color>");
         escapedInput = Regex.Replace(escapedInput, numberPattern, $"<color=#{ColorUtility.ToHtmlStringRGB(ValueColor)}>$0</color>");
+        escapedInput = Regex.Replace(escapedInput, commentPattern, $"<color=#{ColorUtility.ToHtmlStringRGB(CommentColor)}>$0</color>");
         return escapedInput;
     }
 
