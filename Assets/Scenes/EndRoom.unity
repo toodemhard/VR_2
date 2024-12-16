@@ -444,7 +444,7 @@ MonoBehaviour:
     Wall Design & Implementation\nConor \u2013 Lighting Design\nLeqi \u2013 Screen
     Design & Implementation\nCharlotte - Professional lighting manager\n\nCharlotte
     \u2013 Objective Design & Implementation\nVishnu \u2013 Occasional Advice\n\nConor
-    - Credits design\n\n\nThanks for playing!!"
+    - Credits design\n\n\nThanks for playing!!\n\n\npress 'esc' to go back to lobby"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
