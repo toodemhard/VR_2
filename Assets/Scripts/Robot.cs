@@ -379,7 +379,7 @@ class Program {
         while (index < expr.Length) {
             string token = NextToken(expr, index, out index);
 
-            if (IsNum(token[0])) {
+            if (token.Length > 0 && IsNum(token[0])) {
                 valueStack.Add(int.Parse(token));
             } else if (ints.TryGetValue(token, out var varInt)) {
                 valueStack.Add(varInt);
