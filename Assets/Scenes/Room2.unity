@@ -637,7 +637,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0.5, y: 0.5, z: 0.5, w: 0.5}
   m_LocalPosition: {x: 4.36, y: 3.23, z: -5.93}
-  m_LocalScale: {x: 0.25664774, y: 1, z: 0.3501126}
+  m_LocalScale: {x: 0.32933113, y: 1, z: 0.38536894}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -7431,7 +7431,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 180, y: 0, z: -180}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 13.71, y: 3.44}
+  m_AnchoredPosition: {x: 14.18, y: 3.68}
   m_SizeDelta: {x: 20, y: 5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1106952898
@@ -7454,10 +7454,13 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Click 'e' to access the computer terminal!\nIn the terminal you can write
-    code to move the robot\nTry using the following code conditions:\nIf {\n    }\nWhile
-    {\n \t}\n\nTry using the following commands:\nset_speed()\nsensor_detected()
-    \n"
+  m_text: "In this level there are a lot of walls! By adding a while loop, you can
+    repeat code until the conditions are met! \nFor example \"while True{}\" would
+    repeat the code within it forever!\nAn if statement checks if a condition is
+    true, and if it is, it will run the code inside!\nTry using the following code
+    conditions like this:\nIf {\n    }\nWhile {\n \t}\n\nTry using the following
+    commands:\nset_speed(int) - this will make the robot move continuously\nsensor_detected()
+    - this will return True if the sensor detects a wall \n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -7522,7 +7525,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 2.9300485, y: 0, z: -11.032417, w: -0.8933749}
+  m_margin: {x: 2.9300485, y: 0, z: -12.721378, w: -0.8933749}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   _SortingLayer: 0
