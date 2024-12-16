@@ -139,14 +139,15 @@ class Program {
     void GoToMathcingClosingBrace() {
         int openingBraces = 0;
 
+        CurrentLine--;
         do {
+            CurrentLine++;
             if (Code[CurrentLine].Contains('{')) {
                 openingBraces++;
             }
             if (Code[CurrentLine].Contains('}')) {
                 openingBraces--;
             }
-            CurrentLine++;
         } while (openingBraces > 0);
     }
 
@@ -169,7 +170,6 @@ class Program {
                 string expr = line.Substring(exprStart, exprEnd - exprStart);
 
                 string condition = string.Join("", expr.Split(default(string[]), StringSplitOptions.RemoveEmptyEntries));
-                Debug.Log($"Condition: \"{condition}\"");
 
                 if (!EvaluateBoolExpr(expr)) {
                     GoToMathcingClosingBrace();
@@ -185,9 +185,6 @@ class Program {
             break;
 
             case "while": {
-                if (ints["i"] == 3) {
-                    int asdf = 23423;
-                }
                 int exprStart = index;
                 int exprEnd = exprStart;
                 while (exprEnd < line.Length && line[exprEnd] != '{') {
@@ -260,11 +257,11 @@ class Program {
 
             switch (functionType) {
                 case FunctionType.move: {
-                    robot.Move(float.Parse(args));
+                    robot.Move(EvaluateIntExpr(args));
                 }
                 break;
                 case FunctionType.turn: {
-                    robot.Turn(float.Parse(args));
+                    robot.Turn(EvaluateIntExpr(args));
                 }
                 break;
                 case FunctionType.print: {
@@ -272,7 +269,7 @@ class Program {
                 }
                 break;
                 case FunctionType.set_speed:
-                    robot.SetSpeed(float.Parse(args));
+                    robot.SetSpeed(EvaluateIntExpr(args));
                 break;
             }
         }
