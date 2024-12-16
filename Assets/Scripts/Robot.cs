@@ -1,11 +1,7 @@
 using System;
 using System.Collections.Generic;
-using System.Data.Common;
-using NUnit.Framework;
+using System.Text.RegularExpressions;
 using TMPro;
-using Unity.VisualScripting;
-using Unity.VisualScripting.Antlr3.Runtime;
-using UnityEditor.ProjectWindowCallback;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -339,7 +335,6 @@ class Program {
         int index = 0;
         while (index < expr.Length) {
             string token = NextToken(expr, index, out index);
-            Debug.Log($"token: {token}");
 
             if (token == "false") {
                 valueStack.Add(false);
@@ -397,6 +392,20 @@ class Program {
 public class Robot : MonoBehaviour
 {
     [SerializeField]
+    Color KeywordColor;
+    [SerializeField]
+    Color OperatorColor;
+    [SerializeField]
+    Color BraceColor;
+    [SerializeField]
+    Color FunctionColor;
+    [SerializeField]
+    Color ValueColor;
+    [SerializeField]
+    Color CommentColor;
+
+
+    [SerializeField]
     float MoveSpeed = 2;
     [SerializeField]
     float TurnSpeed = 90;
@@ -406,6 +415,9 @@ public class Robot : MonoBehaviour
     Button RunButton;
     [SerializeField]
     TMP_InputField CodeField;
+    [SerializeField]
+    TMP_Text HighlightedText;
+    
     [SerializeField]
     RectTransform InstructionPointer;
     [SerializeField]
@@ -449,7 +461,6 @@ public class Robot : MonoBehaviour
         var pos = robotStart.position;
         transform.position = pos;
         Speed = 0;
-        Debug.Log(robotStart.position.y);
         transform.rotation = robotStart.rotation;
     }
 
@@ -461,7 +472,6 @@ public class Robot : MonoBehaviour
 
         RunButton.onClick.AddListener(() => {
             if (!isRunning) {
-                Debug.Log("KYS");
                 program = new Program(CodeField.text, this);
                 isRunning = true;
                 RunButton.GetComponentInChildren<TMP_Text>().text = "Reset";
@@ -470,6 +480,8 @@ public class Robot : MonoBehaviour
                 RunButton.GetComponentInChildren<TMP_Text>().text = "Run";
             }
         });
+
+        CodeField.onValueChanged.AddListener(OnTextChanged);
         // ResetButton.onClick.AddListener(() => {
         //     if (!isRunning) {
         //         Debug.Log("KYS");
@@ -594,5 +606,31 @@ public class Robot : MonoBehaviour
 
     public bool SensorDetected() {
         return sensor.Innit;
+    }
+
+
+    private string EscapeRichText(string input) {
+        return input.Replace("<", "&lt;").Replace(">", "&gt;");
+    }
+
+    private string keywordPattern = @"\b(if|while)\b";
+    private string bracePattern = @"(\(|\)|\{|\})";
+    private string boolValuePattern = @"\b(true|false)\b";
+    private string numberPattern = @"\b\d+\b";
+    // private string boolValuePattern = @"\b(true|false)\b";
+    private string commentPattern = @"\/\/.*";
+
+    private string ApplySyntaxHighlighting(string input) {
+        string escapedInput = EscapeRichText(input);
+        escapedInput = Regex.Replace(escapedInput, commentPattern, $"<color=#{ColorUtility.ToHtmlStringRGB(CommentColor)}>$0</color>");
+        escapedInput = Regex.Replace(escapedInput, bracePattern, $"<color=#{ColorUtility.ToHtmlStringRGB(BraceColor)}>$0</color>");
+        escapedInput = Regex.Replace(escapedInput, keywordPattern, $"<color=#{ColorUtility.ToHtmlStringRGB(KeywordColor)}>$0</color>");
+        escapedInput = Regex.Replace(escapedInput, boolValuePattern, $"<color=#{ColorUtility.ToHtmlStringRGB(ValueColor)}>$0</color>");
+        return escapedInput;
+    }
+
+    private void OnTextChanged(string input) {
+        HighlightedText.text = ApplySyntaxHighlighting(input);
+        // CodeField.text = ApplySyntaxHighlighting(input);
     }
 }
