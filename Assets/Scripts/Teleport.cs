@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 public class Teleport : MonoBehaviour
 {
     private bool isPlayerInRange = false;
-    public string sceneName = "Room1"; // The name of the scene you want to load
+    public string sceneName = "Room1"; // The name of the scene to be loaded
     public Vector3 targetPosition = new Vector3(-0.65f, 2, 8); // The coordinates in the new scene
     public int requiredLevel = 1; // The level that needs to be unlocked
 
@@ -12,7 +12,7 @@ public class Teleport : MonoBehaviour
     {
         if (isPlayerInRange && Input.GetKeyDown(KeyCode.E) && UnlockLevel.levelsUnlocked[requiredLevel - 1])
         {
-            Debug.Log("E key pressed at door requiring level " + requiredLevel);
+           // Debug.Log("E key pressed at door requiring level " + requiredLevel);
             ChangeScene();
         }
     }
@@ -22,7 +22,7 @@ public class Teleport : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             isPlayerInRange = true;
-            Debug.Log("Player is in range at door requiring level " + requiredLevel);
+            //Debug.Log("Player is in range at door requiring level " + requiredLevel);
         }
     }
 
@@ -31,7 +31,7 @@ public class Teleport : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             isPlayerInRange = false;
-            Debug.Log("Player is out of range at door requiring level " + requiredLevel);
+           // Debug.Log("Player is out of range at door requiring level " + requiredLevel);
         }
     }
 
