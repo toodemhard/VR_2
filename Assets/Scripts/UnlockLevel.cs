@@ -7,7 +7,7 @@ public class UnlockLevel : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        // No need to check for "Player" tag, unlock the level on any collision
+       
         levelsUnlocked[levelToUnlock - 1] = true; // Unlock the specific level
         Debug.Log("Level " + levelToUnlock + " unlocked by " + other.name);
     }

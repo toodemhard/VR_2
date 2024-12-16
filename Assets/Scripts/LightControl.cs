@@ -7,7 +7,7 @@ public class LightControl : MonoBehaviour
 
     void Start()
     {
-        // Find the Point Light component in the child
+        // Finding the Point Light component in the child
         pointLight = GetComponentInChildren<Light>();
 
         // Initial check to set the light color based on current unlock status

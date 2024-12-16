@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class PlayerLocation : MonoBehaviour
 {
-    public static Vector3 targetPosition; // This will store the target position
+    public static Vector3 targetPosition; // store the target position
 
     void Start()
     {
@@ -13,7 +13,7 @@ public class PlayerLocation : MonoBehaviour
         {
             // Move the player to the target position
             transform.position = targetPosition;
-            targetPosition = Vector3.zero; // Reset the target position
+            targetPosition = Vector3.zero; // Resets the target position
         }
     }
 }
