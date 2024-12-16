@@ -1592,7 +1592,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ec4c9d60ea5f564c9e6fcf74d8f0212, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneName: Room1
+  sceneName: Room3
   targetPosition: {x: -0.65, y: 2, z: 8}
   requiredLevel: 3
 --- !u!65 &849160114
