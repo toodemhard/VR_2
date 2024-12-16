@@ -9055,6 +9055,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f10077373ca49d43ba6cd839e7d7e8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  robot: {fileID: 9069397326059507199}
   levelToUnlock: 2
 --- !u!1001 &1479893017
 PrefabInstance:
@@ -13918,6 +13919,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 53015b7bcf975ed43bf7cb3414f5b4b2, type: 3}
+--- !u!114 &9069397326059507199 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7737311604598602658, guid: 53015b7bcf975ed43bf7cb3414f5b4b2, type: 3}
+  m_PrefabInstance: {fileID: 9069397326059507198}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ecbe1ea9ec609054ebf211af8caa5f53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

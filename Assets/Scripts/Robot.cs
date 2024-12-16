@@ -618,7 +618,7 @@ public class Robot : MonoBehaviour
     // string[] program = {};
     Program program;
     int programCounter = 0;
-    bool isRunning = false;
+    public bool isRunning = false;
 
     void Reset() {
         isRunning = false;
@@ -791,9 +791,7 @@ public class Robot : MonoBehaviour
     }
 
     private string keywordPattern = @"\b(if|while|int)\b";
-    // private string functionPattern = @"\b(move|turn|set_speed|sensor_detected,
-    // print,
-    // is_laser_on,)\b";
+    private string functionPattern = @"\b(move|turn|set_speed|sensor_detected|print|is_laser_on,)\b";
     private string bracePattern = @"(\(|\)|\{|\}|==|>|<|=|\+|\-)";
     private string boolValuePattern = @"\b(true|false)\b";
     private string numberPattern = @"\b\d+\b";
@@ -803,6 +801,7 @@ public class Robot : MonoBehaviour
     private string ApplySyntaxHighlighting(string input) {
         string escapedInput = input;
         escapedInput = Regex.Replace(escapedInput, bracePattern, $"<color=#{ColorUtility.ToHtmlStringRGB(BraceColor)}>$0</color>");
+        escapedInput = Regex.Replace(escapedInput, functionPattern, $"<color=#{ColorUtility.ToHtmlStringRGB(FunctionColor)}>$0</color>");
         escapedInput = Regex.Replace(escapedInput, keywordPattern, $"<color=#{ColorUtility.ToHtmlStringRGB(KeywordColor)}>$0</color>");
         escapedInput = Regex.Replace(escapedInput, boolValuePattern, $"<color=#{ColorUtility.ToHtmlStringRGB(ValueColor)}>$0</color>");
         escapedInput = Regex.Replace(escapedInput, numberPattern, $"<color=#{ColorUtility.ToHtmlStringRGB(ValueColor)}>$0</color>");

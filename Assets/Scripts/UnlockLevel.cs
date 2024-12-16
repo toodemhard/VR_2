@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class UnlockLevel : MonoBehaviour
 {
+    [SerializeField]
+    Robot robot;
     public int levelToUnlock; // The level this trigger will unlock
     public static bool[] levelsUnlocked = new bool[4] { true, false, false,false }; // Level 1 is always unlocked
 
@@ -9,6 +11,8 @@ public class UnlockLevel : MonoBehaviour
     {
        
         levelsUnlocked[levelToUnlock - 1] = true; // Unlock the specific level
+        robot.isRunning = false;
+
         Debug.Log("Level " + levelToUnlock + " unlocked by " + other.name);
     }
 }
