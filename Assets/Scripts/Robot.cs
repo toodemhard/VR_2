@@ -261,7 +261,7 @@ class Program {
                 }
                 break;
                 case FunctionType.turn: {
-                    robot.Turn(EvaluateIntExpr(args));
+                    robot.Turn(float.Parse(args));
                 }
                 break;
                 case FunctionType.print: {
@@ -791,6 +791,9 @@ public class Robot : MonoBehaviour
     }
 
     private string keywordPattern = @"\b(if|while|int)\b";
+    // private string functionPattern = @"\b(move|turn|set_speed|sensor_detected,
+    // print,
+    // is_laser_on,)\b";
     private string bracePattern = @"(\(|\)|\{|\}|==|>|<|=|\+|\-)";
     private string boolValuePattern = @"\b(true|false)\b";
     private string numberPattern = @"\b\d+\b";
