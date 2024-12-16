@@ -13123,8 +13123,8 @@ MonoBehaviour:
   m_text: "Click 'e' to access the computer terminal!\nAnd click 'esc' to exit!\nIn
     the terminal you can write code to move the robot! \nTo complete this level code
     the robot to enter the green space on the other side of the room!\n\ntry out
-    the following functions:\nmove(x)\nturn(x)\n\nNote: The numbers on the wall indicate
-    distance"
+    the following functions:\nmove(x) - moves the robot forward x metres\nturn(x)
+    - rotates robot by x degrees\n\nNote: The numbers on the wall indicate distance"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
