@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using NUnit.Framework;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.WSA;
 
 enum CommandType {
     Move,
@@ -16,6 +18,7 @@ enum FunctionType {
     set_speed,
     sensor_detected,
     print,
+    is_laser_on,
 }
 
 class Program {
@@ -33,6 +36,7 @@ class Program {
         {"set_speed", FunctionType.set_speed},
         {"sensor_detected", FunctionType.sensor_detected},
         {"print", FunctionType.print},
+        {"is_laser_on", FunctionType.is_laser_on},
     };
 
     public Dictionary<string, int> ints = new Dictionary<string, int>();
@@ -64,10 +68,21 @@ class Program {
     //     '}'
     // };
 
-    string[] operatorSymbols = {
+    string[] boolOperators = {
         "!",
         "&&",
         "||",
+    };
+
+    string[] compareOperators = {
+        "<",
+        ">",
+        "==",
+    };
+
+    string[] intOperators = {
+        "+",
+        "-",
     };
 
     string[] symbols = {
@@ -91,11 +106,20 @@ class Program {
     }
 
     bool IsSym(string sym) {
-        for (int i = 0; i < operatorSymbols.Length; i++) {
-            if (operatorSymbols[i] == sym) {
+        for (int i = 0; i < boolOperators.Length; i++) {
+            if (boolOperators[i] == sym) {
                 return true;
             }
-
+        }
+        for (int i = 0; i < compareOperators.Length; i++) {
+            if (compareOperators[i] == sym) {
+                return true;
+            }
+        }
+        for (int i = 0; i < intOperators.Length; i++) {
+            if (intOperators[i] == sym) {
+                return true;
+            }
         }
         for (int i = 0; i < symbols.Length; i++) {
             if (symbols[i] == sym) {
@@ -230,12 +254,19 @@ class Program {
                 }
                 break;
                 case FunctionType.print: {
-                    Debug.Log(EvaluateStringExpr(args));
+                    Debug.Log(EvaluateIntExpr(args));
                 }
                 break;
                 case FunctionType.set_speed:
                     robot.SetSpeed(float.Parse(args));
                 break;
+            }
+        }
+
+        if (notKeyword && ints.TryGetValue(token, out _)) { 
+            string assign = NextToken(line, index, out var exprStart);
+            if (assign == "=") {
+                ints[token] = EvaluateIntExpr(line.Substring(exprStart, line.Length - exprStart));
             }
         }
 
@@ -327,15 +358,59 @@ class Program {
         return "";
     }
 
+    int EvaluateIntExpr(string expr) {
+        List<int> valueStack = new List<int>();
+        List<string> operatorStack = new List<string>();
+        int index = 0;
+        while (index < expr.Length) {
+            string token = NextToken(expr, index, out index);
+
+            if (IsNum(token[0])) {
+                valueStack.Add(int.Parse(token));
+            } else if (ints.TryGetValue(token, out var varInt)) {
+                valueStack.Add(varInt);
+            } else {
+                operatorStack.Add(token);
+                // for (int i = 0; i < boolOperators.Length; i++) {
+                //     if (token == boolOperators[i]) {
+                //         operatorStack.Add(token);
+                //     }
+                // }
+            }
+        }
+
+        if (valueStack.Count == 1) {
+            return valueStack[0];
+        }
+
+        int valueSum = valueStack[0];
+        for (int i = 0; i < operatorStack.Count; i++) {
+            switch (operatorStack[i]) {
+            case "+":
+                valueSum += valueStack[i + 1];
+                break;
+            case "-":
+                valueSum -= valueStack[i + 1];
+                break;
+            }
+        }
+
+        return valueSum;
+    }
+
     bool EvaluateBoolExpr(string expr) {
         List<bool> valueStack = new List<bool>();
         List<Operator> operatorStack = new List<Operator>();
         int wordStart = 0;
 
+        string firstIntExpr = "";
+
         int index = 0;
         while (index < expr.Length) {
             string token = NextToken(expr, index, out index);
 
+            bool isIntExpr = false;
+            bool toAdd;
             if (token == "false") {
                 valueStack.Add(false);
             } else if (token == "true") {
@@ -345,15 +420,93 @@ class Program {
                     case FunctionType.sensor_detected:
                         valueStack.Add(robot.SensorDetected());
                     break;
+                    case FunctionType.is_laser_on: {
+                        int parenStart = index;
+                        while (expr[parenStart] != '(') {
+                            parenStart++;
+                        }
+
+                        int parenEnd = parenStart;
+
+                        while (expr[parenEnd] != ')') {
+                            parenEnd++;
+                        }
+
+                        string args = expr.Substring(parenStart+1, parenEnd-parenStart-1);
+                        valueStack.Add(robot.IsLaserOn(EvaluateIntExpr(args)));
+                    }
+                    break;
                 }
             } else {
-                for (int i = 0; i < operatorSymbols.Length; i++) {
-                    if (token == operatorSymbols[i]) {
+                bool isBoolOp = false;
+                for (int i = 0; i < boolOperators.Length; i++) {
+                    if (token == boolOperators[i]) {
                         operatorStack.Add((Operator)i);
+                        isBoolOp = true;
+                        break;
                     }
                 }
-            }
+                if (!isBoolOp) {
+                    bool isCompOp = false;
+                    for (int i = 0; i < compareOperators.Length; i++) {
+                        if (compareOperators[i] == token) {
+                            isCompOp = true;
+                            break;
+                        }
+                    }
 
+                    if (!isCompOp) {
+                        firstIntExpr += $" {token}";
+                    } else {
+                        int firstInt = EvaluateIntExpr(firstIntExpr);
+
+                        string secondIntExpr = "";
+                        int i2 = index;
+
+                        while (i2 < expr.Length) {
+                            string iToken = NextToken(expr, i2, out i2);
+                            bool isIExpr = false;
+                            if (iToken.Length > 0 && IsNum(iToken[0])) {
+                                isIExpr = true;
+                            }
+
+                            for (int i = 0; i < intOperators.Length; i++) {
+                                if (intOperators[i] == iToken) {
+                                    isIExpr = true;
+                                    break;
+                                }
+                            }
+                            
+                            if (!isIExpr) {
+                                break;
+                            }
+
+                            secondIntExpr += $" {iToken}";
+                        }
+
+                        int secondInt = EvaluateIntExpr(secondIntExpr);
+
+                        bool value = false;
+                        switch (token) {
+                            case ">":
+                            value = firstInt > secondInt;
+                            break;
+                            case "<":
+                            value = firstInt < secondInt;
+                            break;
+                            case "==":
+                            value = firstInt == secondInt;
+                            break;
+
+                            default:
+                                Debug.LogError("kys");
+                            break;
+                        }
+                        valueStack.Add(value);
+                    }
+
+                }
+            }
         }
 
         bool sumValue = valueStack[0];
@@ -425,6 +578,9 @@ public class Robot : MonoBehaviour
     [SerializeField]
     Sensor sensor;
 
+    [SerializeField]
+    Laser[] lasers;
+
     float startY;
 
     bool isRunningCommand = false;
@@ -462,6 +618,8 @@ public class Robot : MonoBehaviour
         transform.position = pos;
         Speed = 0;
         transform.rotation = robotStart.rotation;
+        timeAccumulator = 0;
+        program = new Program(CodeField.text, this);
     }
 
     void Awake() {
@@ -493,6 +651,8 @@ public class Robot : MonoBehaviour
         // });
         // Debug.Log("slkhfkjladh");
         Reset();
+
+        OnTextChanged(CodeField.text);
     }
 
     // Update is called once per frame
@@ -608,24 +768,29 @@ public class Robot : MonoBehaviour
         return sensor.Innit;
     }
 
+    public bool IsLaserOn(int index) {
+        return lasers[index].On;
+    }
+
 
     private string EscapeRichText(string input) {
         return input.Replace("<", "&lt;").Replace(">", "&gt;");
     }
 
-    private string keywordPattern = @"\b(if|while)\b";
-    private string bracePattern = @"(\(|\)|\{|\})";
+    private string keywordPattern = @"\b(if|while|int)\b";
+    private string bracePattern = @"(\(|\)|\{|\}|==|>|<|=|\+|\-)";
     private string boolValuePattern = @"\b(true|false)\b";
     private string numberPattern = @"\b\d+\b";
     // private string boolValuePattern = @"\b(true|false)\b";
     private string commentPattern = @"\/\/.*";
 
     private string ApplySyntaxHighlighting(string input) {
-        string escapedInput = EscapeRichText(input);
+        string escapedInput = input;
         escapedInput = Regex.Replace(escapedInput, commentPattern, $"<color=#{ColorUtility.ToHtmlStringRGB(CommentColor)}>$0</color>");
         escapedInput = Regex.Replace(escapedInput, bracePattern, $"<color=#{ColorUtility.ToHtmlStringRGB(BraceColor)}>$0</color>");
         escapedInput = Regex.Replace(escapedInput, keywordPattern, $"<color=#{ColorUtility.ToHtmlStringRGB(KeywordColor)}>$0</color>");
         escapedInput = Regex.Replace(escapedInput, boolValuePattern, $"<color=#{ColorUtility.ToHtmlStringRGB(ValueColor)}>$0</color>");
+        escapedInput = Regex.Replace(escapedInput, numberPattern, $"<color=#{ColorUtility.ToHtmlStringRGB(ValueColor)}>$0</color>");
         return escapedInput;
     }
 
