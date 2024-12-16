@@ -13985,6 +13985,10 @@ PrefabInstance:
       propertyPath: robot
       value: 
       objectReference: {fileID: 1514190783}
+    - target: {fileID: 6530520698233982397, guid: c6d41dd8aeccb38499844dc95bffa001, type: 3}
+      propertyPath: levelToUnlock
+      value: 4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
