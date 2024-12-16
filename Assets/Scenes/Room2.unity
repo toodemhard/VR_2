@@ -7455,9 +7455,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: "Click 'e' to access the computer terminal!\nIn the terminal you can write
-    code to move the robot\nTry using the following code conditions:\nIf {\n    }\nWhile
-    {\n \t}\n\nTry using the following commands:\nset_speed()\nsensor_detected()
-    \n"
+    code to move the robot\nYou can create a while loop like this:\n\nint x = 0\nwhile
+    x < 5 {\n\tx = x+1\n}\nTry using the following commands:\nset_speed()\nsensor_detected()
+    - returns true if something detected\n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
