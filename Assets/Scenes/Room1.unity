@@ -1511,7 +1511,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: 0.7124706, w: 0.70170206}
   m_LocalPosition: {x: 6.82, y: 3.4, z: 3.82}
-  m_LocalScale: {x: 0.25664774, y: 1, z: 0.3501126}
+  m_LocalScale: {x: 0.26342323, y: 1, z: 0.3501126}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -12759,10 +12759,11 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Click 'e' to access the computer terminal!\nIn the terminal you can write
-    code to move the robot! \nTo complete this level code the robot to enter the
-    green space on the other side of the room!\n\ntry out the following functions:\nmove(x)\nturn(x)\n\nNote:
-    The numbers on the wall indicate distance"
+  m_text: "Click 'e' to access the computer terminal!\nAnd click 'esc' to exit!\nIn
+    the terminal you can write code to move the robot! \nTo complete this level code
+    the robot to enter the green space on the other side of the room!\n\ntry out
+    the following functions:\nmove(x)\nturn(x)\n\nNote: The numbers on the wall indicate
+    distance"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -12897,7 +12898,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 180.001, y: -90, z: -180}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 6.741, y: 3.962}
+  m_AnchoredPosition: {x: 6.741, y: 4.05}
   m_SizeDelta: {x: 20, y: 5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &2036706898
