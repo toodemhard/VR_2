@@ -1558,7 +1558,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneName: Room2
-  targetPosition: {x: -0.65, y: 2, z: 8}
+  targetPosition: {x: 6.5, y: 3, z: 2.5}
   requiredLevel: 2
 --- !u!65 &546312552
 BoxCollider:
