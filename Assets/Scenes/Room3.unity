@@ -11243,6 +11243,7 @@ MonoBehaviour:
   sceneName: Lobby
   targetPosition: {x: 509, y: 2, z: 516}
   requiredLevel: 1
+  requiredLevel: 1
 --- !u!65 &1653058873
 BoxCollider:
   m_ObjectHideFlags: 0
