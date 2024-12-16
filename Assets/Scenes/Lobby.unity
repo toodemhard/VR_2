@@ -2062,7 +2062,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneName: EndRoom
-  targetPosition: {x: -0.65, y: 2, z: 8}
+  targetPosition: {x: 507, y: 6.5, z: 520}
   requiredLevel: 4
 --- !u!65 &656959763
 BoxCollider:
