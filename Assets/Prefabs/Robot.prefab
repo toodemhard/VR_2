@@ -68,13 +68,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ecbe1ea9ec609054ebf211af8caa5f53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  KeywordColor: {r: 0.9924528, g: 0.31271622, b: 0.3458637, a: 1}
-  OperatorColor: {r: 0.96981126, g: 0.29826263, b: 0.30277836, a: 1}
+  KeywordColor: {r: 1, g: 0.32470596, b: 0.27735847, a: 1}
+  OperatorColor: {r: 0.96862745, g: 0.6679835, b: 0.2980392, a: 1}
   BraceColor: {r: 1, g: 0.6001945, b: 0.17924517, a: 1}
   FunctionColor: {r: 1, g: 0.80579895, b: 0.1641509, a: 1}
-  ValueColor: {r: 0.8415094, g: 0.51919544, b: 0.8379734, a: 1}
+  ValueColor: {r: 0.8952554, g: 0.5333357, b: 0.98490566, a: 1}
   CommentColor: {r: 0.2905661, g: 0.2905661, b: 0.2905661, a: 1}
-  MoveSpeed: 2
+  MoveSpeed: 3
   TurnSpeed: 90
   instructionPeriod: 0.25
   RunButton: {fileID: 0}
@@ -83,6 +83,11 @@ MonoBehaviour:
   InstructionPointer: {fileID: 0}
   robotStart: {fileID: 0}
   sensor: {fileID: 0}
+  lasers:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  isRunning: 0
 --- !u!54 &8583584479705084370
 Rigidbody:
   m_ObjectHideFlags: 0

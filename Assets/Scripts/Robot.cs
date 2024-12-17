@@ -631,11 +631,13 @@ public class Robot : MonoBehaviour
         transform.rotation = robotStart.rotation;
         timeAccumulator = 0;
         program = new Program(CodeField.text, this);
+        InstructionPointer.gameObject.SetActive(false);
     }
 
     void Awake() {
         // transform.gameObject.SetActive(false);
         startY = InstructionPointer.localPosition.y;
+        InstructionPointer.gameObject.SetActive(false);
 
         program = new Program(CodeField.text, this);
 
@@ -644,6 +646,7 @@ public class Robot : MonoBehaviour
                 program = new Program(CodeField.text, this);
                 isRunning = true;
                 RunButton.GetComponentInChildren<TMP_Text>().text = "Reset";
+                InstructionPointer.gameObject.SetActive(true);
             } else {
                 Reset();
                 RunButton.GetComponentInChildren<TMP_Text>().text = "Run";
@@ -791,8 +794,8 @@ public class Robot : MonoBehaviour
     }
 
     private string keywordPattern = @"\b(if|while|int)\b";
-    private string functionPattern = @"\b(move|turn|set_speed|sensor_detected|print|is_laser_on,)\b";
-    private string bracePattern = @"(\(|\)|\{|\}|==|>|<|=|\+|\-)";
+    private string functionPattern = @"\b(move|turn|set_speed|sensor_detected|print|is_laser_on)\b";
+    private string bracePattern = @"(\(|\)|\{|\}|==|>|<|=|\+|\-|\!)";
     private string boolValuePattern = @"\b(true|false)\b";
     private string numberPattern = @"\b\d+\b";
     // private string boolValuePattern = @"\b(true|false)\b";

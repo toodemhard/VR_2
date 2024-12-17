@@ -13834,6 +13834,24 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.y
       value: -28.686
       objectReference: {fileID: 0}
+    - target: {fileID: 825864253242493654, guid: 53015b7bcf975ed43bf7cb3414f5b4b2, type: 3}
+      propertyPath: m_Text
+      value: '// Use the functions move(int distance) and turn(float angle)
+
+        //
+        to get the robot to the end of the level
+
+        // example:
+
+        //
+        move(12)
+
+        // turn(90)'
+      objectReference: {fileID: 0}
+    - target: {fileID: 2374145855728029328, guid: 53015b7bcf975ed43bf7cb3414f5b4b2, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2861140205810534638, guid: 53015b7bcf975ed43bf7cb3414f5b4b2, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.26

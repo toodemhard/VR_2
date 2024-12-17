@@ -362,6 +362,50 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4913498625247477234}
     m_Modifications:
+    - target: {fileID: 311029761161606735, guid: 3e014f451cd26be45a852a88529a43be, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 311029761161606735, guid: 3e014f451cd26be45a852a88529a43be, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 359.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 311029761161606735, guid: 3e014f451cd26be45a852a88529a43be, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: -40
+      objectReference: {fileID: 0}
+    - target: {fileID: 311029761161606735, guid: 3e014f451cd26be45a852a88529a43be, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 197.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 311029761161606735, guid: 3e014f451cd26be45a852a88529a43be, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1305857946957564853, guid: 3e014f451cd26be45a852a88529a43be, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 320
+      objectReference: {fileID: 0}
+    - target: {fileID: 1305857946957564853, guid: 3e014f451cd26be45a852a88529a43be, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 1305857946957564853, guid: 3e014f451cd26be45a852a88529a43be, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 169.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4513326810484008326, guid: 3e014f451cd26be45a852a88529a43be, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4513326810484008326, guid: 3e014f451cd26be45a852a88529a43be, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4513326810484008326, guid: 3e014f451cd26be45a852a88529a43be, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -165.9
+      objectReference: {fileID: 0}
     - target: {fileID: 4935527155050274722, guid: 3e014f451cd26be45a852a88529a43be, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 70
@@ -369,6 +413,22 @@ PrefabInstance:
     - target: {fileID: 4935527155050274722, guid: 3e014f451cd26be45a852a88529a43be, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 139
+      objectReference: {fileID: 0}
+    - target: {fileID: 5034275607105144917, guid: 3e014f451cd26be45a852a88529a43be, type: 3}
+      propertyPath: m_fontSize
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 5034275607105144917, guid: 3e014f451cd26be45a852a88529a43be, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 5034275607105144917, guid: 3e014f451cd26be45a852a88529a43be, type: 3}
+      propertyPath: m_TextWrappingMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6823897737865713733, guid: 3e014f451cd26be45a852a88529a43be, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7452974849744750844, guid: 3e014f451cd26be45a852a88529a43be, type: 3}
       propertyPath: m_Pivot.x
@@ -452,7 +512,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8446497719274904579, guid: 3e014f451cd26be45a852a88529a43be, type: 3}
       propertyPath: m_Text
-      value: 
+      value: "// The lasers turn off for a fixed duration \n// of time. Wait for
+        the laser to be on then off\n// to catch the maximum possible off duration\n"
       objectReference: {fileID: 0}
     - target: {fileID: 8446497719274904579, guid: 3e014f451cd26be45a852a88529a43be, type: 3}
       propertyPath: m_CaretColor.b
@@ -467,6 +528,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8446497719274904579, guid: 3e014f451cd26be45a852a88529a43be, type: 3}
+      propertyPath: m_GlobalPointSize
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 8446497719274904579, guid: 3e014f451cd26be45a852a88529a43be, type: 3}
       propertyPath: m_CustomCaretColor
       value: 1
       objectReference: {fileID: 0}
@@ -479,6 +544,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8446497719274904579, guid: 3e014f451cd26be45a852a88529a43be, type: 3}
+      propertyPath: m_isRichTextEditingAllowed
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8446497719274904579, guid: 3e014f451cd26be45a852a88529a43be, type: 3}
       propertyPath: m_RestoreOriginalTextOnEscape
       value: 0
       objectReference: {fileID: 0}
@@ -489,6 +558,19 @@ PrefabInstance:
     - target: {fileID: 8481451311118055253, guid: 3e014f451cd26be45a852a88529a43be, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9184136978817074075, guid: 3e014f451cd26be45a852a88529a43be, type: 3}
+      propertyPath: m_text
+      value: "// The lasers turn off for a fixed duration \n// of time. Wait for
+        the laser to be on then off\n// to catch the maximum possible off duration\n\u200B"
+      objectReference: {fileID: 0}
+    - target: {fileID: 9184136978817074075, guid: 3e014f451cd26be45a852a88529a43be, type: 3}
+      propertyPath: m_fontSize
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 9184136978817074075, guid: 3e014f451cd26be45a852a88529a43be, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:

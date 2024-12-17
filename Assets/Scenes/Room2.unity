@@ -7455,8 +7455,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: "Click 'e' to access the computer terminal!\nIn the terminal you can write
-    code to move the robot\nTry using the following code conditions:\nIf {\n    }\nWhile
-    {\n \t}\n\nTry using the following commands:\nset_speed()\nsensor_detected()
+    code to move the robot\nTry using the following code conditions:\nif *condition*
+    {\n}\n {\n \t}\n\nTry using the following commands:\nset_speed()\nsensor_detected()
     \n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -8224,7 +8224,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 748245095755921071, guid: 53015b7bcf975ed43bf7cb3414f5b4b2, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -3.278
+      value: -3.27
       objectReference: {fileID: 0}
     - target: {fileID: 748245095755921071, guid: 53015b7bcf975ed43bf7cb3414f5b4b2, type: 3}
       propertyPath: m_LocalRotation.w
@@ -8240,7 +8240,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 825864253242493654, guid: 53015b7bcf975ed43bf7cb3414f5b4b2, type: 3}
       propertyPath: m_Text
-      value: "int x = 345\n\nwhile !sensor_detected() {\n\tmove(1)\n}"
+      value: "// Use the function sensor_detected() to turn when the\n// robot reaches
+        a wall.\n// example:\n// while !sensor_detected() {\n//\t...\n// }\n"
       objectReference: {fileID: 0}
     - target: {fileID: 1372992990953242960, guid: 53015b7bcf975ed43bf7cb3414f5b4b2, type: 3}
       propertyPath: m_LocalPosition.x
