@@ -1,12 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
-using NUnit.Framework;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Rendering;
 using UnityEngine.UI;
-using UnityEngine.WSA;
 
 enum CommandType {
     Move,
