@@ -28,7 +28,7 @@ public class UnlockLevel : MonoBehaviour
         }
 
         if (text != null) {
-            if (levelToUnlock == levelsUnlocked.Length - 1) {
+            if (levelToUnlock == levelsUnlocked.Length) {
                 text.text = $"Credits Unlocked";
             } else {
                 text.text = $"Level {levelToUnlock} Unlocked!";
