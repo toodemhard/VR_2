@@ -9120,6 +9120,12 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 87090293380912462, guid: 53015b7bcf975ed43bf7cb3414f5b4b2, type: 3}
+      propertyPath: m_text
+      value: "// Use the function bool is_laser_on(int index)\n// to move when the
+        laser turns off.\n// The lasers are indexed from 0..2 so use a while loop\n//
+        and counter variable to iterate through the indices.\u200B"
+      objectReference: {fileID: 0}
     - target: {fileID: 586073956556019488, guid: 53015b7bcf975ed43bf7cb3414f5b4b2, type: 3}
       propertyPath: m_UiScaleMode
       value: 1
@@ -9213,10 +9219,6 @@ PrefabInstance:
       propertyPath: robotStart
       value: 
       objectReference: {fileID: 1091955208}
-    - target: {fileID: 7737311604598602658, guid: 53015b7bcf975ed43bf7cb3414f5b4b2, type: 3}
-      propertyPath: HighlightedText
-      value: 
-      objectReference: {fileID: 1591241431}
     - target: {fileID: 7737311604598602658, guid: 53015b7bcf975ed43bf7cb3414f5b4b2, type: 3}
       propertyPath: 'lasers.Array.data[0]'
       value: 
@@ -9617,17 +9619,6 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: ffad064668ec02446b5c0e21cb59764d, type: 3}
---- !u!114 &1591241431 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4295489808037043840, guid: 53015b7bcf975ed43bf7cb3414f5b4b2, type: 3}
-  m_PrefabInstance: {fileID: 1514190782}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1593583488
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -13783,6 +13783,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 87090293380912462, guid: 53015b7bcf975ed43bf7cb3414f5b4b2, type: 3}
+      propertyPath: m_text
+      value: "// Use the functions move(int distance) and turn(float angle)\n// to
+        get the robot to the end of the level\n// example:\n// move(12)\n// turn(90)\u200B"
+      objectReference: {fileID: 0}
     - target: {fileID: 441728866981200406, guid: 53015b7bcf975ed43bf7cb3414f5b4b2, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.37
@@ -13849,10 +13854,6 @@ PrefabInstance:
 
         // turn(90)'
       objectReference: {fileID: 0}
-    - target: {fileID: 2374145855728029328, guid: 53015b7bcf975ed43bf7cb3414f5b4b2, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2861140205810534638, guid: 53015b7bcf975ed43bf7cb3414f5b4b2, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.26
@@ -13896,6 +13897,14 @@ PrefabInstance:
     - target: {fileID: 4270306148895395841, guid: 53015b7bcf975ed43bf7cb3414f5b4b2, type: 3}
       propertyPath: m_IsKinematic
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4295489808037043840, guid: 53015b7bcf975ed43bf7cb3414f5b4b2, type: 3}
+      propertyPath: m_text
+      value: asdf
+      objectReference: {fileID: 0}
+    - target: {fileID: 4295489808037043840, guid: 53015b7bcf975ed43bf7cb3414f5b4b2, type: 3}
+      propertyPath: m_margin.x
+      value: -0.15242779
       objectReference: {fileID: 0}
     - target: {fileID: 4913498625247477234, guid: 53015b7bcf975ed43bf7cb3414f5b4b2, type: 3}
       propertyPath: m_LocalPosition.x
