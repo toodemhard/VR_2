@@ -12456,8 +12456,7 @@ MonoBehaviour:
   m_text: "Click 'e' to access the terminal!\nIn the terminal you can write code
     to move the Robot!\n\nBeware of the lasers or your robot might get destroyed!!!\n\nTry
     out the following boolean function:\nis_laser_on() - detects if a laser is on
-    \n*hint* use while loops and use '!' to invert a boolean\n\nNote: if your robot
-    has been destroyed by lasers it can be brung back with the reset button\n\n\n"
+    \n*hint* use while loops and use '!' to invert a boolean\n\n\n\n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

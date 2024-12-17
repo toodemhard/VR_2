@@ -7455,12 +7455,13 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: "In this level there are a lot of walls! By adding a while loop, you can
-    repeat code until the conditions are met! \nFor example \"while True{}\" would
-    repeat the code within it forever!\nAn if statement checks if a condition is
-    true, and if it is, it will run the code inside!\nTry using the following code
-    conditions like this:\nIf {\n    }\nWhile {\n \t}\n\nTry using the following
-    commands:\nset_speed(int) - this will make the robot move continuously\nsensor_detected()
-    - this will return True if the sensor detects a wall \n"
+    repeat instructions until the conditions are met! \nFor example \"while true\"
+    would repeat the code within it forever!\nAn if statement checks if a condition
+    is true, and if it is, it will run the code inside!\nTry using the following
+    code conditions like this:\nif *condition* {\n}\nwhile *condition* {\n}\n\nTry
+    using the following commands:\nvoid set_speed(int speed) - move robot without
+    pausing execution\nbool sensor_detected() - this will return True if the sensor
+    detects a wall \n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
